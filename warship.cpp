@@ -35,8 +35,8 @@ void print(char arr[12][12]) {
 bool generateShip(int n, char arr[12][12])
 {
 	int x = 1 + rand() % 9;
-	int y = 1 + rand() % 7;
-	int direction = rand() % 1;
+	int y = 1 + rand() % 9;
+	int direction = rand() % 2;
 	int st_l, st_r, col_l, col_r;
 	st_l = x - 1;
 	col_l = y - 1;
@@ -51,25 +51,29 @@ bool generateShip(int n, char arr[12][12])
 
 	for (int xPos = st_l; xPos < st_r; xPos++) {
 		for (int yPos = col_l; yPos < col_r; yPos++) {
-			if (arr[xPos][yPos] == '*') {
-				return 0;
+
+				if (arr[xPos][yPos] == '*') {
+					return 0;
+				}
+				else if (arr[xPos][yPos + 1] == '*') {
+					return 0;
+				}
+				else if (arr[xPos + 1][yPos] == '*') {
+					return 0;
+				}
+				else if (arr[xPos][yPos + 1] == '#') {
+					return 0;
+				}
 			}
-			else if (arr[xPos + 1][yPos] == '*') {
-				return 0;
-			}
-			else if (arr[xPos][yPos + 1] == '*') {
-				return 0;
-			}
-		}
 	}
 
 	for (int k = 0; k < n; k++) {
-		if (!direction) {
-			arr[x][y + k] = '*';
-		}
-		else {
-			arr[x + 1 + k][y] = '*';
-		}
+				if (!direction) {
+					arr[x][y + k] = '*';
+				}
+				else {
+					arr[x + k][y] = '*';
+				}	
 	}
 
 	return 1;
