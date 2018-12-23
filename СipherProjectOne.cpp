@@ -1,8 +1,8 @@
 #include "pch.h"
+#include "windows.h"
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <vector>
 #include <algorithm>
 
 using namespace std;
@@ -31,26 +31,34 @@ string keyCorrector(string key, string word) {
 
 
 string coderator(string key, string word) {
-	if (word.length() > key.length()) {
-		for (int i = 0; word.length() != key.length(); i++) {
-			key = key + key[i];
-		}
-	}
+	key = keyCorrector(key, word);
 	int sup1 = word.length();
 
 	for (int j = 0; j < sup1; j++) {
-		    int k = (int)key[j] - 48;
-			word[j] = buffer[string(buffer).find(word[j]) + k];
+		int k = (int)key[j] - 48;
+		word[j] = buffer[string(buffer).find(word[j]) + k];
 	}
-	cout << word;
+	cout << "Зашифрованное слово: \t" << word <<  endl;
+
+	for (int j = 0; j < sup1; j++) {
+		int k = (int)key[j] - 48;
+		word[j] = buffer[string(buffer).find(word[j]) - k];
+	}
+	cout << "Расшифрованное слово: \t" << word <<  endl;
 	return word;
 }
 
 int main() {
-	setlocale(LC_ALL, "rus");
-    alphabet();
-	coderator("123", "МАМА");
-
-	delete [] buffer;
+	setlocale(0, "rus");
+	SetConsoleOutputCP(1251);
+	SetConsoleCP(1251);
+	alphabet();
+	string a,b;
+	cout << "Введите ключ шифрования :" << endl;
+	cin >> a;
+	cout << "Введите шифруемое слово: " << endl;
+	cin >> b;
+	coderator(a, b);
+	delete[] buffer;
 }
 
