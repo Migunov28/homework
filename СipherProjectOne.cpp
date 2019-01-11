@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "windows.h"
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -36,15 +37,28 @@ string coderator(string key, string word) {
 
 	for (int j = 0; j < sup1; j++) {
 		int k = (int)key[j] - 48;
-		word[j] = buffer[string(buffer).find(word[j]) + k];
+		int findval = string(buffer).find(word[j]) + k;
+		if (findval < string(buffer).size()) {
+			word[j] = buffer[findval];
+		}
+		else {
+			word[j] = buffer[findval - string(buffer).size()];
+		}
 	}
 	cout << "Зашифрованное слово: \t" << word <<  endl;
 
 	for (int j = 0; j < sup1; j++) {
 		int k = (int)key[j] - 48;
-		word[j] = buffer[string(buffer).find(word[j]) - k];
+		int findval = string(buffer).find(word[j]) - k;
+		if (findval >= 0) {
+			word[j] = buffer[findval];
+		}
+		else {
+			findval = -findval;
+			word[j] = buffer[string(buffer).size() - findval];
+		}
 	}
-	cout << "Расшифрованное слово: \t" << word <<  endl;
+	cout << "Расшифрованное слово: \t" << word <<  endl; 
 	return word;
 }
 
@@ -52,13 +66,17 @@ int main() {
 	setlocale(0, "rus");
 	SetConsoleOutputCP(1251);
 	SetConsoleCP(1251);
+
 	alphabet();
 	string a,b;
+
 	cout << "Введите ключ шифрования :" << endl;
 	cin >> a;
+
 	cout << "Введите шифруемое слово: " << endl;
 	cin >> b;
+
 	coderator(a, b);
+
 	delete[] buffer;
 }
-
