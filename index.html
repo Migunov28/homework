@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta charset="utf-8"></head>
+<body>
+
+
+Угол: <input type= "text" name = "txtAngle" id = "a1" size = "5" value ="20">
+Шаг: <input type = Text name = txtDepth id = "d1" size = "5" value ="9" onclick="return d1_onclick()">
+<input Type = "Button" name = "b1" value = "Сгенирировать" onClick = "Button1_onclick()">
+
+<P>
+ <canvas id="canvas" width="0" height="0"></canvas><script type="text/javascript">
+ 
+            var elem = document.getElementById('canvas');
+            var context = elem.getContext('2d');
+
+            context.fillStyle   = '#000';
+            context.lineWidth   = 1;
+
+            var deg_to_rad = Math.PI / 180.0;
+            var globalW = 0;
+            var globalH = 0;
+
+            function drawLine(x1, y1, x2, y2, brightness){
+             context.moveTo(x1, y1);
+             context.lineTo(x2, y2);
+            }
+            function drawTree(x1, y1, angle, depth, angle1){
+             if (depth != 0){
+              var x2 = x1 + (Math.cos(angle * deg_to_rad) * depth * 10.0);
+              var y2 = y1 + (Math.sin(angle * deg_to_rad) * depth * 10.0);
+              drawLine(x1, y1, x2, y2, depth);
+              drawTree(x2, y2, angle - angle1, depth - 1,angle1);
+              drawTree(x2, y2, angle + angle1, depth - 1,angle1);
+             }
+            }
+
+            function TreeCanvasLimits(x1, y1, angle, depth, angle1){
+             if (depth != 0){
+              var x2 = x1 - (Math.cos(angle * deg_to_rad) * depth * 10.0);
+              var y2 = y1 - (Math.sin(angle * deg_to_rad) * depth * 10.0);
+              if (globalW > x2)
+              {
+                  globalW = x2;
+              }
+              if(globalH < y2)
+              {
+                  globalH = y2;
+              }
+              TreeCanvasLimits(x2, y2, angle - angle1, depth - 1,angle1);
+              TreeCanvasLimits(x2, y2, angle + angle1, depth - 1,angle1);
+             }
+
+            }
+
+            function clearCanvas(context3, canvas3) {
+              context3.clearRect(0, 0, canvas3.width, canvas3.height);
+              var an1 = parseFloat(document.getElementById('a1').value);
+              var dep1 = parseFloat(document.getElementById('d1').value);
+              globalH = 0;
+              globalW = 0;
+              TreeCanvasLimits(0,0,-90,dep1,an1);
+              canvas3.width = 1;
+              globalW = globalW * (-2)
+              canvas3.width = globalW;
+              canvas3.height = globalH;
+            }
+
+            function Button1_onclick()
+            {
+                var canvas2 = document.getElementById('canvas');
+                var context2 = canvas2.getContext('2d');
+                clearCanvas(context2,canvas2);
+                var an1 = parseFloat(document.getElementById('a1').value);
+                var dep1 = parseFloat(document.getElementById('d1').value);
+
+                context.beginPath();
+                drawTree(canvas2.width/2 ,canvas2.height , -90, dep1 , an1);
+                context.closePath();
+                context.stroke();
+            }
+
+</script>
+
+
+</body>
+</html>
