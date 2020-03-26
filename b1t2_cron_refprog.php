@@ -2,20 +2,18 @@
 /**
  @ Cron Referral program by Munay, v1.2.0
  */
-
 include_once('../merchan/cpayeer/cpayeer.php');
-
 # class autoload
 function __autoload($name) { include_once("../engine/class.".$name.".php"); }
 
 $config   =   new config; // config class
 $validate =   new validate; // validate class
-$db   		= 	new db( $config->HostDB, $config->UserDB, $config->PassDB, $config->BaseDB, $config->EncodeDB ); // db connection
-$db2 		  = 	new db( $config->HostDB, $config->UserDB, $config->PassDB, $config->BaseDB, $config->EncodeDB );	// create an instance of db class for the cycle
-$db3 		  = 	new db( $config->HostDB, $config->UserDB, $config->PassDB, $config->BaseDB, $config->EncodeDB );
-$db4      = 	new db( $config->HostDB, $config->UserDB, $config->PassDB, $config->BaseDB, $config->EncodeDB );
-$db5      = 	new db( $config->HostDB, $config->UserDB, $config->PassDB, $config->BaseDB, $config->EncodeDB );
-$db6      = 	new db( $config->HostDB, $config->UserDB, $config->PassDB, $config->BaseDB, $config->EncodeDB );
+$db   	  =   new db( $config->HostDB, $config->UserDB, $config->PassDB, $config->BaseDB, $config->EncodeDB ); // db connection
+$db2 	  =   new db( $config->HostDB, $config->UserDB, $config->PassDB, $config->BaseDB, $config->EncodeDB );	// create an instance of db class for the cycle
+$db3      =   new db( $config->HostDB, $config->UserDB, $config->PassDB, $config->BaseDB, $config->EncodeDB );
+$db4      =   new db( $config->HostDB, $config->UserDB, $config->PassDB, $config->BaseDB, $config->EncodeDB );
+$db5      =   new db( $config->HostDB, $config->UserDB, $config->PassDB, $config->BaseDB, $config->EncodeDB );
+$db6      =   new db( $config->HostDB, $config->UserDB, $config->PassDB, $config->BaseDB, $config->EncodeDB );
 
 $accountNumber = $p_out_number;
 $apiId = $p_out_id;
