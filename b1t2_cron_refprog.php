@@ -7,7 +7,6 @@ include_once('../merchan/cpayeer/cpayeer.php');
 function __autoload($name) { include_once("../engine/class.".$name.".php"); }
 
 $config   =   new config; // config class
-$validate =   new validate; // validate class
 $db   	  =   new db( $config->HostDB, $config->UserDB, $config->PassDB, $config->BaseDB, $config->EncodeDB ); // db connection
 $db2 	  =   new db( $config->HostDB, $config->UserDB, $config->PassDB, $config->BaseDB, $config->EncodeDB );	// create an instance of db class for the cycle
 $db3      =   new db( $config->HostDB, $config->UserDB, $config->PassDB, $config->BaseDB, $config->EncodeDB );
